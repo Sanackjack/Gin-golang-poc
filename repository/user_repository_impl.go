@@ -35,7 +35,7 @@ func (t *UserRepositoryImpl) FindAll() []models.User {
 }
 
 // FindById implements TagsRepository
-func (t *UserRepositoryImpl) FindById(tagsId int) (tags models.User, err error) {
+func (t *UserRepositoryImpl) FindById(tagsId int) (users models.User, err error) {
 
 	var usr models.User
 	result := t.Db.Find(&usr, tagsId)
@@ -48,11 +48,12 @@ func (t *UserRepositoryImpl) FindById(tagsId int) (tags models.User, err error) 
 }
 
 // Save implements TagsRepository
-func (t *UserRepositoryImpl) Save(tags models.User) {
+func (t *UserRepositoryImpl) Save(tags models.User) (err error) {
 	result := t.Db.Create(&tags)
 	//result.Error = errors.New("test")
 	if result.Error != nil {
 		helper.ErrorPanic(&helper.CustomException{Message: "Save data error", Code: http.StatusBadRequest})
 	}
 
+	return result.Error
 }

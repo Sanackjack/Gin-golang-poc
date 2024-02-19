@@ -5,7 +5,7 @@ import (
 )
 
 type UserRepository interface {
-	Save(tags models.User)
+	Save(user models.User) (err error)
 
 	Delete(tagsId int)
 	FindById(tagsId int) (tags models.User, err error)
